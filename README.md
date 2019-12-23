@@ -1,5 +1,7 @@
 # Banke tečaj scraper
 ## Program dobavlja trenutni srednji tečaj eura prema kuni
+### Screenshot
+![Screenshot](https://github.com/smamusa/banke-tecaj-python/blob/master/Screenshot.png?raw=true)
 
 ## Banke:
 - [x] OTP
@@ -10,6 +12,7 @@
 
 ## To-Do:
 - [ ] Spremati tečajeve u txt datotetku
+- [ ] Ispravit grešku gdje program ne stiže dobaviti HTML na vrijeme
 
 ### Prije pokretanja instalirati sve s popisa
 - requests
