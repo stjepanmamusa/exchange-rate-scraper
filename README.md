@@ -4,18 +4,28 @@
 ## Banke:
 - [x] OTP
 - [x] ZABA
-- [] Erste
-- [] HPB
-- [] PBZ
+- [ ] Erste
+- [ ] HPB
+- [ ] PBZ
 
 ## To-Do:
-- [] Spremati tečajeve u txt datotetku
+- [ ] Spremati tečajeve u txt datotetku
 
 ### Prije pokretanja instalirati sve s popisa
-* requests
-    pip install requests
-* requests_html
-    pip install requests_html
-* bs4
-    pip install bs4
+- requests
 
+```
+    pip install requests
+```
+
+- requests_html
+
+```
+    pip install requests_html
+```
+
+- bs4
+
+```
+    pip install bs4
+```
