@@ -13,6 +13,7 @@
 ## To-Do:
 - [ ] Spremati tečajeve u txt datotetku
 - [ ] Ispravit grešku gdje program ne stiže dobaviti HTML na vrijeme
+- [ ] Proširiti na kupovne i prodajne tečaje
 
 ### Prije pokretanja instalirati sve s popisa
 - requests
