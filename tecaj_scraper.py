@@ -1,8 +1,3 @@
-# Before runing run
-# pip install requests
-# pip install requests_html
-# pip install bs4
-
 # Import libraries
 import requests
 from bs4 import BeautifulSoup
