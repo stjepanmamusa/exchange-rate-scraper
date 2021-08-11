@@ -1,11 +1,24 @@
 # Import libraries
 from bs4 import BeautifulSoup
-# import HTMLSession from requests_html
 from requests_html import HTMLSession
+import logging
+# Custom imports
 import modules.Banks as Banks
+import modules.Utils as Utils
+
+# Setup logging
+formatter = logging.Formatter(
+    '%(asctime)s.%(msecs)03d %(levelname)s:%(name)s:%(funcName)s():%(message)s', '%d.%m.%Y %H:%M:%S')
+file_handler = logging.FileHandler(
+    f'logs/log_{Utils.DateUtil.getDate()}.log')
+file_handler.setFormatter(formatter)
+logger = logging.getLogger(__name__)
+logger.addHandler(file_handler)
+logger.setLevel(logging.DEBUG)
 
 # Make sure to use the same session
 session = HTMLSession()
+logger.warning('CREATE HTML SESSION COMPLETED')
 
 otp = Banks.OtpBanka('https://www.otpbanka.hr/hr/tecajna-lista', session)
 otp.getRates()

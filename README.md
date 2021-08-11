@@ -18,7 +18,7 @@
 - [ ] Correct HTML not being parsed in time
 - [ ] Add other rates
 
-### Before starting the CLI install dependencies :warning:
+### :warning: Before starting the CLI install dependencies
 
 - requests
 

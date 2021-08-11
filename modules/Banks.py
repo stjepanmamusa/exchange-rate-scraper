@@ -6,13 +6,18 @@ from bs4 import BeautifulSoup
 # Import custom utilities
 import modules.Utils as Utils
 
-# Setup logging
-logging.basicConfig(
-    filename=f"logs/log_{Utils.DateUtil.getDate()}.log", encoding="utf-8", format='%(asctime)s %(levelname)s:%(message)s', level=logging.INFO)
+# Set-up logging
+formatter = logging.Formatter(
+    '%(asctime)s.%(msecs)03d %(levelname)s:%(name)s:%(funcName)s():%(message)s', '%d.%m.%Y %H:%M:%S')
+file_handler = logging.FileHandler(f'logs/log_{Utils.DateUtil.getDate()}.log')
+file_handler.setFormatter(formatter)
+logger = logging.getLogger(__name__)
+logger.addHandler(file_handler)
+logger.setLevel(logging.DEBUG)
 
 
 class Bank:
-    def __init__(self, url, session, name="noname"):
+    def __init__(self, url, session, name='noname'):
         self.url = url
         self.name = name
         self.session = session
@@ -22,36 +27,36 @@ class Bank:
 
     def getResponse(self):
         # Output info
-        logging.info(f"Creating session at URL : {self.url}")
+        logger.info(f'Creating session at URL : {self.url}')
         # Get response from exchange rates url
         try:
             response = self.session.get(self.url)
-            logging.info(f"Session created at URL : {self.url}")
+            logger.info(f'Session created at URL : {self.url}')
             return response
         except(Exception):
-            logging.critical(f"Exception occurred : {Exception}")
+            logger.critical(f'Exception occurred : {Exception}')
 
     @staticmethod
     def renderHtml(response):
         # Run JavaScript code on webpage
-        logging.info("Rendering HTML")
+        logger.info('Rendering HTML')
         try:
             response.html.render()
         except(Exception):
-            logging.critical(f"Exception occurred : {Exception}")
-        logging.info("HTML rendered")
+            logger.critical(f'Exception occurred : {Exception}')
+        logger.info('HTML rendered')
 
     # If a web page has a different structure then a specific parse method must be implemented
     @staticmethod
     def parseHtml(response):
-        logging.info("Parsing HTML")
+        logger.info('Parsing HTML')
         try:
-            soup = BeautifulSoup(response.html.html, "html.parser")
-            td_tags = soup.find_all("td")
+            soup = BeautifulSoup(response.html.html, 'html.parser')
+            td_tags = soup.find_all('td')
             td_text = [tag.text for tag in td_tags]
             return td_text
         except(Exception):
-            logging.critical(f"Exception occurred while parsing {Exception}")
+            logger.critical(f'Exception occurred while parsing {Exception}')
             traceback.print_stack()
 
 
@@ -62,19 +67,21 @@ class OtpBanka(Bank):
         # Run JavaScript code on webpage
         Bank.renderHtml(response)
         parsedText = Bank.parseHtml(response)
+        currency = 'EUR'
         try:
             print(
-                f"Midmarket rate is {parsedText[parsedText.index('EUR') + 5]}")
+                f'Midmarket rate is {parsedText[parsedText.index(currency) + 5]}')
             print(
-                f"OTP Banka cash buy rate EUR to HRK : {parsedText[parsedText.index('EUR') + 3]}")
+                f'OTP Banka cash buy rate EUR to HRK : {parsedText[parsedText.index(currency) + 3]}')
             print(
-                f"OTP Banka cash sell rate EUR to HRK : {parsedText[parsedText.index('EUR') + 7]}")
+                f'OTP Banka cash sell rate EUR to HRK : {parsedText[parsedText.index(currency) + 7]}')
             print(
-                f"OTP Banka foreign buy rate EUR to HRK : {parsedText[parsedText.index('EUR') + 5]}")
+                f'OTP Banka foreign buy rate EUR to HRK : {parsedText[parsedText.index(currency) + 5]}')
             print(
-                f"OTP Banka foreign buy rate EUR to HRK : {parsedText[parsedText.index('EUR') + 6]}")
+                f'OTP Banka foreign buy rate EUR to HRK : {parsedText[parsedText.index(currency) + 6]}')
         except:
-            print("Errors occurred while parsing, check logs")
+            logger.exception('Parse exception')
+            raise
 
 
 class ZABA(Bank):
@@ -92,9 +99,9 @@ class ZABA(Bank):
         try:
             eurIndex = parsedText.index('\nEUR')
             print(
-                f"ZABA {type} buy rate EUR to HRK : {parsedText[eurIndex + 2]}")
+                f'ZABA {type} buy rate EUR to HRK : {parsedText[eurIndex + 2]}')
             print(
-                f"ZABA {type} buy sell EUR to HRK : {parsedText[eurIndex + 4]}")
+                f'ZABA {type} buy sell EUR to HRK : {parsedText[eurIndex + 4]}')
         except(Exception):
             print(
-                "Eror occurred while getting ZABA rates : {0}".format(Exception))
+                f'Eror occurred while getting ZABA rates : {Exception}')
