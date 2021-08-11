@@ -18,7 +18,13 @@
 - [ ] Correct HTML not being parsed in time
 - [ ] Add other rates
 
-### :warning: Before starting the CLI install dependencies
+### Installation
+
+```cmd
+    git clone https://github.com/smamusa/exchange-rate-scraper.git
+```
+
+:warning: Before starting the CLI install dependencies
 
 - requests
 
