@@ -12,13 +12,15 @@ formatter = logging.Formatter(
 file_handler = logging.FileHandler(
     f'logs/log_{Utils.DateUtil.getDate()}.log')
 file_handler.setFormatter(formatter)
+stream_handler = logging.StreamHandler()
 logger = logging.getLogger(__name__)
 logger.addHandler(file_handler)
+logger.addHandler(stream_handler)
 logger.setLevel(logging.DEBUG)
 
 # Make sure to use the same session
 session = HTMLSession()
-logger.warning('CREATE HTML SESSION COMPLETED')
+logger.info('CREATE HTML SESSION COMPLETED')
 
 otp = Banks.OtpBanka('https://www.otpbanka.hr/hr/tecajna-lista', session)
 otp.getRates()

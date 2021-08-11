@@ -8,7 +8,7 @@ import modules.Utils as Utils
 
 # Set-up logging
 formatter = logging.Formatter(
-    '%(asctime)s.%(msecs)03d %(levelname)s:%(name)s:%(funcName)s():%(message)s', '%d.%m.%Y %H:%M:%S')
+    '%(asctime)s.%(msecs)03d %(levelname)s:%(name)s:%(funcName)s():%(lineno)d:%(message)s', '%d.%m.%Y %H:%M:%S')
 file_handler = logging.FileHandler(f'logs/log_{Utils.DateUtil.getDate()}.log')
 file_handler.setFormatter(formatter)
 logger = logging.getLogger(__name__)
