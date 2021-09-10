@@ -1,3 +1,0 @@
-logs/*
-!logs/README.txt
-modules/__pycache__
