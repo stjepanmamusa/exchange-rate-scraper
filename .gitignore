@@ -1,4 +1,4 @@
 .vscode
 environment/
-logs
+logs/*
 **/__pycache__
