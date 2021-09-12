@@ -20,20 +20,39 @@
 
 ### Installation
 
+Clone the repo
+
 ```cmd
     git clone https://github.com/smamusa/exchange-rate-scraper.git
 ```
 
-:warning: Before starting the CLI install dependencies
-
-- requests
+Switch into repo directory
 
 ```cmd
-    pip install requests
+    cd exchange-rate-scraper
 ```
 
-- requests_html
+Create a new virtual environment
 
 ```cmd
-    pip install requests_html
+   python -m venv myvenv
+```
+
+Run the venv activation script. Which one you run depends on your OS and terminal
+
+```cmd
+   cd myenv/Scripts
+   activate.bat
+```
+
+Install all requirements
+
+```cmd
+    pip install -r requirements.txt
+```
+
+Finally run the app by calling scrape.py
+
+```cmd
+    python scrape.py
 ```
