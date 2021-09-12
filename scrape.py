@@ -5,9 +5,16 @@ import logging
 import modules.Banks as Banks
 from modules.Banks import Utils
 
-# Setup logging
-formatter = logging.Formatter(
-    '%(asctime)s.%(msecs)03d %(levelname)s:%(name)s:%(funcName)s():%(message)s', '%d.%m.%Y %H:%M:%S')
+# Set-up format strings
+format = '%(asctime)s.%(msecs)03d '
+format += '%(levelname)s:'
+format += '%(name)s:'
+format += '%(funcName)s():'
+format += '%(lineno)d:'
+format += '%(message)s'
+format_date = '%d.%m.%Y %H:%M:%S'
+formatter = logging.Formatter(format, format_date)
+# Set-up logger
 file_handler = logging.FileHandler(
     f'logs/log_{Utils.DateUtil.getDate()}.log')
 file_handler.setFormatter(formatter)

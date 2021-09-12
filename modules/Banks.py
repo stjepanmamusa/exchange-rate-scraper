@@ -4,9 +4,18 @@ import traceback
 from bs4 import BeautifulSoup
 # Import custom utilities
 import modules.Utils as Utils
-# Set-up logging
-formatter = logging.Formatter(
-    '%(asctime)s.%(msecs)03d %(levelname)s:%(name)s:%(funcName)s():%(lineno)d:%(message)s', '%d.%m.%Y %H:%M:%S')
+
+# Set-up format strings
+format = '%(asctime)s.%(msecs)03d '
+format += '%(levelname)s:'
+format += '%(name)s:'
+format += '%(funcName)s():'
+format += '%(lineno)d:'
+format += '%(message)s'
+format_date = '%d.%m.%Y %H:%M:%S'
+# Set-up formatter
+formatter = logging.Formatter(format, format_date)
+# Set-up logger
 file_handler = logging.FileHandler(f'logs/log_{Utils.DateUtil.getDate()}.log')
 file_handler.setFormatter(formatter)
 logger = logging.getLogger(__name__)
@@ -44,7 +53,8 @@ class Bank:
             logger.critical(f'Exception occurred : {Exception}')
         logger.info('HTML rendered')
 
-    # If a web page has a different structure then a specific parse method must be implemented
+    # If a web page has a different structure then a specific
+    # parse method must be implemented
     @staticmethod
     def parseHtml(response):
         logger.info('Parsing HTML')
@@ -66,19 +76,26 @@ class OtpBanka(Bank):
         Bank.renderHtml(response)
         parsedText = Bank.parseHtml(response)
         currency = 'EUR'
+        indexes = [
+                   parsedText[parsedText.index(currency) + 5],
+                   parsedText[parsedText.index(currency) + 3],
+                   parsedText[parsedText.index(currency) + 7],
+                   parsedText[parsedText.index(currency) + 5],
+                   parsedText[parsedText.index(currency) + 6]
+                   ]
         try:
             print(
-                f'Midmarket rate is {parsedText[parsedText.index(currency) + 5]}')
+                f'Midmarket rate is {indexes[0]}')
             print(
-                f'OTP Banka cash buy rate EUR to HRK : {parsedText[parsedText.index(currency) + 3]}')
+                f'OTP Banka cash buy rate EUR to HRK : {indexes[1]}')
             print(
-                f'OTP Banka cash sell rate EUR to HRK : {parsedText[parsedText.index(currency) + 7]}')
+                f'OTP Banka cash sell rate EUR to HRK : {indexes[2]}')
             print(
-                f'OTP Banka foreign buy rate EUR to HRK : {parsedText[parsedText.index(currency) + 5]}')
+                f'OTP Banka foreign buy rate EUR to HRK : {indexes[3]}')
             print(
-                f'OTP Banka foreign buy rate EUR to HRK : {parsedText[parsedText.index(currency) + 6]}')
-        except:
-            logger.exception('Parse exception')
+                f'OTP Banka foreign buy rate EUR to HRK : {indexes[4]}')
+        except ValueError:
+            logger.exception(f'Didn\'t  find currency tag in parsed text')
             raise
 
 
@@ -96,10 +113,14 @@ class ZABA(Bank):
         parsedText = Bank.parseHtml(response)
         try:
             eurIndex = parsedText.index('\nEUR')
+            indexes = [
+                       parsedText[eurIndex + 2],
+                       parsedText[eurIndex + 4]
+                      ]
             print(
-                f'ZABA {type} buy rate EUR to HRK : {parsedText[eurIndex + 2]}')
+                f'ZABA {type} buy rate EUR to HRK : {indexes[0]}')
             print(
-                f'ZABA {type} buy sell EUR to HRK : {parsedText[eurIndex + 4]}')
+                f'ZABA {type} buy sell EUR to HRK : {indexes[1]}')
         except(Exception):
             print(
                 f'Eror occurred while getting ZABA rates : {Exception}')
