@@ -20,6 +20,12 @@
 
 ### Installation
 
+:warning: Note, the first time you ever run the render() method, it will download Chromium into your home directory (e.g. ~/.pyppeteer/).
+
+:exclamation: pyppeteer requires Python >= 3.6
+
+:exclamation: This only happens once.
+
 Clone the repo
 
 ```cmd
