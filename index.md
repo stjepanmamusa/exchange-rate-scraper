@@ -4,7 +4,9 @@
 
 site url is {{ site.url }}
 
-{{ site.github }}
+{{ site.github.baseurl }}
+
+{{ page.url }}
 
 <ul>
   {% for post in site.posts %}
