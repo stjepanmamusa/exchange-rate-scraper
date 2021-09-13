@@ -4,6 +4,8 @@
 
 site url is {{ site.url }}
 
+{{ site.github }}
+
 <ul>
   {% for post in site.posts %}
     <li>
