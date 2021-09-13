@@ -2,16 +2,10 @@
 
 ### Some debug stuff here
 
-site url is {{ site.url }}
-
-{{ site.github.baseurl }}
-
-{{ page.url }}
-
 <ul>
   {% for post in site.posts %}
     <li>
-      <a href="{{site.url}}/{{ post.url }}">{{ post.title }}</a>
+      <a href="{{site.url}}{{site.github.baseurl}}{{ post.url }}">{{ post.title }}</a>
     </li>
   {% endfor %}
 </ul>
