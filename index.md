@@ -1,4 +1,4 @@
-## Posts
+#Exchange rate scraper
 
 <ul>
   {% for post in site.posts %}
