@@ -1,4 +1,4 @@
-<h1>Exchange rate scraper</h1>
+#Exchange rate scraper
 
 <ul>
   {% for post in site.posts %}
@@ -8,4 +8,4 @@
   {% endfor %}
 </ul>
 
-<p> ❗ Detailed usage instruction in progress </p>
+❗ Detailed usage instruction in progress
