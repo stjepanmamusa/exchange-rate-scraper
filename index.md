@@ -2,7 +2,7 @@
 
 ### Some debug stuff here
 
-site.url is {{ site.url }}
+site url is {{ site.url }}
 
 <ul>
   {% for post in site.posts %}
