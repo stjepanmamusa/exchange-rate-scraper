@@ -1,7 +1,7 @@
-name: code-quality
+name: Code Quality
 on: [push]
 jobs:
-  check-bats-version:
+  formatting:
     runs-on: ubuntu-latest
     steps:
       - name: Python Blacken
