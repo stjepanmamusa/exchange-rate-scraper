@@ -1,5 +1,6 @@
 # Currency Exchange Rate Scraper for Croatian Banks
 [![License: MIT](https://img.shields.io/github/license/smamusa/exchange-rate-scraper)](https://github.com/smamusa/exchange-rate-scraper/blob/master/LICENSE.md) 
+![Last commit](https://img.shields.io/github/last-commit/smamusa/exchange-rate-scraper)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 
