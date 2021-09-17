@@ -1,0 +1,13 @@
+name: code-quality
+on: [push]
+jobs:
+  check-bats-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Python Blacken
+        uses: piotrpawlaczek/python-blacken@v20.8b1
+        with:
+          line-length: '88'
+          path: '.'
+          sanity-check: 'safe'
+          only-check: 'yes'
