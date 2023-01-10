@@ -1,1 +1,0 @@
-All logs created by the app will be stored here
