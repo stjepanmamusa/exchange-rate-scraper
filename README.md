@@ -14,7 +14,7 @@
 ## Banks
 
 - [x] OTP
-- [] ZABA
+- [ ] ZABA
 - [ ] Erste
 - [ ] HPB
 - [ ] PBZ
