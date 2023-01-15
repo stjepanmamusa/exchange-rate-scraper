@@ -32,14 +32,14 @@ public class OtpCurrency {
         this.sellRate = sellRate;
     }
 
-    private int code;
+    private String code;
     private int unitAmount;
 
     private double buyRate;  //effective
 
     private double sellRate; //effective
 
-    public OtpCurrency(Currency currency, int code, int unitAmount, double buyRate, double sellRate) {
+    public OtpCurrency(Currency currency, String code, int unitAmount, double buyRate, double sellRate) {
         this.currency = currency;
         this.code = code;
         this.unitAmount = unitAmount;

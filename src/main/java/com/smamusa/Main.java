@@ -3,14 +3,16 @@ package com.smamusa;
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.WebClientOptions;
+import com.gargoylesoftware.htmlunit.html.DomNode;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.smamusa.banks.Currency;
 import com.smamusa.banks.otp.OtpCurrency;
-import com.smamusa.banks.otp.OtpScriptPreProcessor;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URL;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,24 +23,22 @@ public class Main {
 
         try (final WebClient webClient = new WebClient(BrowserVersion.CHROME)) {
             WebClientOptions options = webClient.getOptions();
-            webClient.setScriptPreProcessor(new OtpScriptPreProcessor());
-            options.setJavaScriptEnabled(true);
             options.setThrowExceptionOnScriptError(false);
-            options.setThrowExceptionOnFailingStatusCode(false);
+            options.setJavaScriptEnabled(true);
             options.setCssEnabled(false);
 
             // OTP bank first
             final HtmlPage page = webClient.getPage("https://www.otpbanka.hr/tecajna-lista");
             webClient.waitForBackgroundJavaScript(500);
 
-            List<String> rowData = page.getElementsByTagName("td").stream().map(td -> td.asNormalizedText()).collect(Collectors.toList());
+            List<String> rowData = page.getElementsByTagName("td").stream().map(DomNode::asNormalizedText).collect(Collectors.toList());
 
             List<OtpCurrency> currencies = parseToOtpCurrency(rowData);
 
-            System.out.printf("OTP Banka EUR cash buy/sell rates\n");
-            System.out.printf("Currency\t Buy rate\t Sell rate\t");
+            System.out.print("OTP Banka EUR cash buy/sell rates\n");
+            System.out.printf("%-15s %-15s %-15s\n","Currency", "Buy rate", "Sell rate");
             currencies.forEach(currency -> {
-                System.out.printf("%s\t%f\t%f\t\n",currency.getCurrency(),currency.getBuyRate(),currency.getSellRate());
+                System.out.printf("%-15s %-15f %-15f\n",currency.getCurrency(),currency.getBuyRate(),currency.getSellRate());
             });
 
         } catch (MalformedURLException e) {
@@ -47,11 +47,13 @@ public class Main {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
+        catch (ParseException e) {
+            System.err.println("Error parsing exchange rates, check your received data");
+        }
     }
 
 
-    public static List<OtpCurrency> parseToOtpCurrency(List<String> tdElements) {
+    public static List<OtpCurrency> parseToOtpCurrency(List<String> tdElements) throws ParseException {
         List<String> elements = new ArrayList<>();
         List<OtpCurrency> currencies = new ArrayList<>();
 
@@ -66,9 +68,14 @@ public class Main {
             dataElement += tdElements.get(x) + "\n";
         }
 
+        DecimalFormat df = new DecimalFormat();
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+        symbols.setDecimalSeparator(',');
+        symbols.setGroupingSeparator(' ');
+        df.setDecimalFormatSymbols(symbols);
         for (String element : elements) {
             String[] data = element.split("\n");
-            currencies.add(new OtpCurrency(Currency.valueOf(data[0]), Integer.parseInt(data[1]), Integer.parseInt(data[2]), Integer.parseInt(data[3]), Double.parseDouble(data[7])));
+            currencies.add(new OtpCurrency(Currency.valueOf(data[0]), data[1], Integer.parseInt(data[2]), (Double) df.parse(data[3]), (Double) df.parse(data[7])));
         }
         return currencies;
     }
