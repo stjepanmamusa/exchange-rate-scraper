@@ -8,7 +8,7 @@
 
 ## Screenshot
 
-![Screenshot](creenshot.png)
+![Screenshot](Screenshot.png)
 
 
 ## Banks
