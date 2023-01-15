@@ -8,12 +8,13 @@
 
 ## Screenshot
 
-![Screenshot](https://github.com/smamusa/banke-tecaj-python/blob/master/Screenshot.png?raw=true)
+![Screenshot](https://github.com/smamusa/exchange-rate-scraper/blob/55dde89d2063d789ce416e2c432b1294a55efcf1/Screenshot.png)
+
 
 ## Banks
 
 - [x] OTP
-- [x] ZABA
+- [] ZABA
 - [ ] Erste
 - [ ] HPB
 - [ ] PBZ
