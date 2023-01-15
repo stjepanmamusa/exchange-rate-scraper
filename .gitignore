@@ -1,4 +1,6 @@
+# Text editors
+.idea
 .vscode
-environment/
-logs/*.log
-**/__pycache__
+
+target
+
