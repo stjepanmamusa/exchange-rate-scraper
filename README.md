@@ -8,12 +8,13 @@
 
 ## Screenshot
 
-![Screenshot](Screenshot.png)
+![Screenshot](creenshot.png)
+
 
 ## Banks
 
 - [x] OTP
-- [x] ZABA
+- [ ] ZABA
 - [ ] Erste
 - [ ] HPB
 - [ ] PBZ
@@ -21,50 +22,6 @@
 ## To-Do
 
 - [ ] Save rates in a txt or csv file
-- [ ] Correct HTML not being parsed in time
-- [ ] Add other rates
-
-### Installation
-
-:warning: Note, the first time you ever run the render() method, it will download Chromium into your home directory (e.g. ~/.pyppeteer/).
-
-:exclamation: pyppeteer requires Python >= 3.6
-
-:exclamation: This only happens once.
-
-Clone the repo
-
-```cmd
-    git clone https://github.com/smamusa/exchange-rate-scraper.git
-```
-
-Switch into repo directory
-
-```cmd
-    cd exchange-rate-scraper
-```
-
-Create a new virtual environment
-
-```cmd
-   python -m venv myvenv
-```
-
-Run the venv activation script. Which one you run depends on your OS and terminal
-
-```cmd
-   cd myenv/Scripts
-   activate.bat
-```
-
-Install all requirements
-
-```cmd
-    pip install -r requirements.txt
-```
-
-Finally run the app by calling scrape.py
-
-```cmd
-    python scrape.py
-```
+- [ ] Update README.md with Java instructions
+- [x] Add other rates
+- [ ] Assign project task for wherever attention is needed
