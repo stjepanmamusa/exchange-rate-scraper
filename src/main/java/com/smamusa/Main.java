@@ -17,28 +17,35 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.smamusa.utils.LoggingUtils.disableNonAppLoggers;
+
 public class Main {
     public static void main(String[] args) {
+
+        disableNonAppLoggers();
+
         System.out.println("App started...");
+
 
         try (final WebClient webClient = new WebClient(BrowserVersion.CHROME)) {
             WebClientOptions options = webClient.getOptions();
             options.setThrowExceptionOnScriptError(false);
+            options.setUseInsecureSSL(true);
             options.setJavaScriptEnabled(true);
             options.setCssEnabled(false);
 
             // OTP bank first
             final HtmlPage page = webClient.getPage("https://www.otpbanka.hr/tecajna-lista");
-            webClient.waitForBackgroundJavaScript(500);
+            webClient.waitForBackgroundJavaScript(1000);
 
             List<String> rowData = page.getElementsByTagName("td").stream().map(DomNode::asNormalizedText).collect(Collectors.toList());
 
             List<OtpCurrency> currencies = parseToOtpCurrency(rowData);
 
             System.out.print("OTP Banka EUR cash buy/sell rates\n");
-            System.out.printf("%-15s %-15s %-15s\n","Currency", "Buy rate", "Sell rate");
+            System.out.printf("%-15s %-15s %-15s\n", "Currency", "Buy rate", "Sell rate");
             currencies.forEach(currency -> {
-                System.out.printf("%-15s %-15f %-15f\n",currency.getCurrency(),currency.getBuyRate(),currency.getSellRate());
+                System.out.printf("%-15s %-15f %-15f\n", currency.getCurrency(), currency.getBuyRate(), currency.getSellRate());
             });
 
         } catch (MalformedURLException e) {
@@ -46,8 +53,7 @@ public class Main {
             throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
-        }
-        catch (ParseException e) {
+        } catch (ParseException e) {
             System.err.println("Error parsing exchange rates, check your received data");
         }
     }
