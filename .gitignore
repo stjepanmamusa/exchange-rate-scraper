@@ -2,5 +2,6 @@
 .idea
 .vscode
 
-target
+# Output Folders
+target/
 
