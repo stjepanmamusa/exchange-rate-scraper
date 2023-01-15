@@ -8,7 +8,7 @@
 
 ## Screenshot
 
-![Screenshot](https://github.com/smamusa/banke-tecaj-python/blob/master/Screenshot.png?raw=true)
+![Screenshot](Screenshot.png)
 
 ## Banks
 
