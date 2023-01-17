@@ -1,4 +1,5 @@
 .vscode
+.idea
 environment/
 logs/*.log
 **/__pycache__
