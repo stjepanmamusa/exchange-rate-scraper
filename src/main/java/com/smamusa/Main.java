@@ -7,6 +7,7 @@ import com.gargoylesoftware.htmlunit.html.DomNode;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.smamusa.banks.Currency;
 import com.smamusa.banks.otp.OtpCurrency;
+import com.smamusa.utils.OtpUtils;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -40,7 +41,7 @@ public class Main {
 
             List<String> rowData = page.getElementsByTagName("td").stream().map(DomNode::asNormalizedText).collect(Collectors.toList());
 
-            List<OtpCurrency> currencies = parseToOtpCurrency(rowData);
+            List<OtpCurrency> currencies = OtpUtils.parseToOtpCurrency(rowData);
 
             System.out.print("OTP Banka EUR cash buy/sell rates\n");
             System.out.printf("%-15s %-15s %-15s\n", "Currency", "Buy rate", "Sell rate");
@@ -59,30 +60,6 @@ public class Main {
     }
 
 
-    public static List<OtpCurrency> parseToOtpCurrency(List<String> tdElements) throws ParseException {
-        List<String> elements = new ArrayList<>();
-        List<OtpCurrency> currencies = new ArrayList<>();
 
-        String dataElement = "";
 
-        for (int x = 0; x < tdElements.size(); x++) {
-
-            if (x > 0 && (tdElements.get(x).matches("[a-zA-Z]+") || x + 1 == tdElements.size())) {
-                elements.add(dataElement);
-                dataElement = "";
-            }
-            dataElement += tdElements.get(x) + "\n";
-        }
-
-        DecimalFormat df = new DecimalFormat();
-        DecimalFormatSymbols symbols = new DecimalFormatSymbols();
-        symbols.setDecimalSeparator(',');
-        symbols.setGroupingSeparator(' ');
-        df.setDecimalFormatSymbols(symbols);
-        for (String element : elements) {
-            String[] data = element.split("\n");
-            currencies.add(new OtpCurrency(Currency.valueOf(data[0]), data[1], Integer.parseInt(data[2]), (Double) df.parse(data[3]), (Double) df.parse(data[7])));
-        }
-        return currencies;
-    }
 }
