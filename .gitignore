@@ -1,6 +1,7 @@
-.vscode
+# Text editors
 .idea
-environment/
-logs/*.log
-**/__pycache__
-*.iml
+.vscode
+
+# Output Folders
+target/
+
