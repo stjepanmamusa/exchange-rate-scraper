@@ -5,16 +5,12 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.WebClientOptions;
 import com.gargoylesoftware.htmlunit.html.DomNode;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.smamusa.banks.Currency;
 import com.smamusa.banks.otp.OtpCurrency;
 import com.smamusa.utils.OtpUtils;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -58,8 +54,6 @@ public class Main {
             System.err.println("Error parsing exchange rates, check your received data");
         }
     }
-
-
 
 
 }
